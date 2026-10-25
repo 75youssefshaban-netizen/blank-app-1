@@ -1,30 +1,31 @@
 import streamlit as st
 
-st.set_page_config(page_title="تطبيق تلخيص المناهج الدراسية", page_icon="📚")
+st.set_page_config(page_title="Study App", page_icon="📚")
 
-st.title("📚 تطبيق تلخيص المناهج الدراسية")
+st.title("📚 Study Summarizer App")
 st.markdown("---")
 
-option = st.radio("اختر طريقة إدخال المنهج أو الدرس:", ("إدخال نص", "رفع صورة للمنهج"))
+option = st.radio("Choose input method:", ("Text Input", "Upload Image"))
 
 text_input = ""
 uploaded_image = None
 
-if option == "إدخال نص":
-    text_input = st.text_area("ضع نص الدرس أو المنهج هنا للتلخيص:", placeholder="اكتب أو الصق النص هنا...")
+if option == "Text Input":
+    text_input = st.text_area("Enter your study text here:")
 else:
-    uploaded_image = st.file_uploader("قم بتحديث أو رفع صورة الدرس أو الكتاب:", type=["png", "jpg", "jpeg"])
+    uploaded_image = st.file_uploader("Upload your study image/book:", type=["png", "jpg", "jpeg"])
 
-if st.button("✨ تلخيص الدرس"):
-    if option == "إدخال نص" and text_input.strip() != "":
-        st.success("جاري تلخيص النص الدراسي...")
-        st.write("### الملخص:")
-        st.info("هنا سيظهر ملخص الدرس بناءً على النص الذي أدخلته.")
-    elif option == "رفع صورة للمنهج" and uploaded_image is not None:
-        st.success("تم رفع الصورة بنجاح! جاري قراءة محتوى الصورة وتلخيصه...")
-        st.image(uploaded_image, caption="الصورة المرفوعة", use_column_width=True)
-        st.write("### الملخص المستخرج من الصورة:")
-        st.info("هنا سيظهر الملخص المستخرج من المادة البصرية للدرس.")
+if st.button("✨ Summarize Lesson"):
+    if option == "Text Input" and text_input.strip() != "":
+        st.success("Processing text...")
+        st.write("### Summary:")
+        st.info("Here is the generated summary based on your text.")
+    elif option == "Upload Image" and uploaded_image is not None:
+        st.success("Image uploaded successfully! Processing...")
+        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+        st.write("### Summary from Image:")
+        st.info("Here is the generated summary based on your image.")
     else:
-        st.warning("الرجاء إدخال نص أو رفع صورة أولاً قبل الضغط على زر التلخيص
+        st.warning("Please enter text or upload an image first!")
+        
 
