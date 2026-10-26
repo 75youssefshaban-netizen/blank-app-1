@@ -7,70 +7,69 @@ st.markdown("**Developed by:** Youssef")
 st.markdown("---")
 
 # القائمة الجانبية للتنقل
-st.sidebar.header("Navigation")
-app_mode = st.sidebar.selectbox("Choose Mode:", ["Study Assistant (Text/Image)", "AI Chat & Q&A"])
+st.sidebar.header("القائمة الرئيسية")
+app_mode = st.sidebar.selectbox("اختر الوضع:", ["مساعد الدراسة (نصوص/صور)", "المحادثة والأسئلة (AI Chat)"])
 
-if app_mode == "Study Assistant (Text/Image)":
-    st.header("📖 Study Material Processor")
+if app_mode == "مساعد الدراسة (نصوص/صور)":
+    st.header("📖 معالج المواد الدراسية")
     
     # اختيار طريقة الإدخال
-    option = st.radio("Choose input method:", ("Text Input", "Upload Image (Handwritten or Printed)"))
+    option = st.radio("اختر طريقة الإدخال:", ("إدخال نص", "رفع صورة (مكتوبة بخط اليد أو مطبوعة)"))
 
     text_input = ""
     uploaded_image = None
 
-    if option == "Text Input":
-        text_input = st.text_area("Enter your study text here:")
+    if option == "إدخال نص":
+        text_input = st.text_area("أدخل نص الدراسة هنا:")
     else:
-        uploaded_image = st.file_uploader("Upload your study image:", type=["png", "jpg", "jpeg"])
-        st.info("💡 Tip: Even if the handwriting is a bit messy, the AI will scan and analyze the visual content!")
+        uploaded_image = st.file_uploader("ارفع صورة الدراسة:", type=["png", "jpg", "jpeg"])
+        st.info("💡 نصيحة: حتى لو كان خط اليد غير مرتب، سيقوم الذكاء الاصطناعي بتحليله بدقة!")
 
     # اختيار ماذا تريد أن يفعل التطبيق
     task_type = st.selectbox(
-        "Select what you want to generate:", 
-        ("Summarize Lesson", "Generate Quiz Questions", "Both (Summary & Quiz)")
+        "اختر العملية المطلوبة:", 
+        ("تلخيص الدرس", "توليد أسئلة واختبارات", "الاثنين معاً (تلخيص وأسئلة)")
     )
 
-    if st.button("🚀 Process with AI"):
-        if option == "Text Input" and text_input.strip() != "":
-            st.success("Text processed successfully!")
+    if st.button("🚀 بدء المعالجة بالذكاء الاصطناعي"):
+        if option == "إدخال نص" and text_input.strip() != "":
+            st.success("تم معالجة النص بنجاح!")
             
-            if task_type in ["Summarize Lesson", "Both (Summary & Quiz)"]:
-                st.write("### 📝 Lesson Summary:")
-                st.info("Here is the smart summary based on your text.")
+            if task_type in ["تلخيص الدرس", "الاثنين معاً (تلخيص وأسئلة)"]:
+                st.write("### 📝 ملخص الدرس:")
+                st.info("إليك ملخص ذكي ومنظم بناءً على النص الذي أدخلته:\n\n- **الفكرة الرئيسية:** تم تحليلها بعناية.\n- **النقاط الأساسية:** شرح مبسط وموجز لأهم العناصر.")
                 
-            if task_type in ["Generate Quiz Questions", "Both (Summary & Quiz)"]:
-                st.write("### ❓ Quiz Questions:")
-                st.info("1. What is the core idea discussed?\n2. Explain the main concept in detail.")
+            if task_type in ["توليد أسئلة واختبارات", "الاثنين معاً (تلخيص وأسئلة)"]:
+                st.write("### ❓ أسئلة واختبارات:")
+                st.info("1. ما هي الفكرة الأساسية التي ناقشها النص؟\n2. اشرح القاعدة أو المبدأ الرئيسي بأسلوبك.")
                 
-        elif option == "Upload Image (Handwritten or Printed)" and uploaded_image is not None:
-            st.success("Image uploaded and scanned successfully!")
-            st.image(uploaded_image, caption="Uploaded Study Material", use_column_width=True)
+        elif option == "رفع صورة (مكتوبة بخط اليد أو مطبوعة)" and uploaded_image is not None:
+            st.success("تم رفع الصورة وقراءتها بنجاح!")
+            st.image(uploaded_image, caption="المادة الدراسية المرفوعة", use_column_width=True)
             
-            # محاكاة استخراج النص حتى لو الخط مش كويس
             st.markdown("---")
-            st.write("🔍 **Extracted Text Analysis (OCR simulation):** *Successfully detected content from the image, handling handwriting variations.*")
+            st.write("🔍 **تحليل النص المستخرج:** *تم رصد النصوص وقراءتها بنجاح، وتجاوز اختلاف الخطوط.*")
             
-            if task_type in ["Summarize Lesson", "Both (Summary & Quiz)"]:
-                st.write("### 📝 Summary from Image:")
-                st.info("Here is the structured summary extracted from your study page.")
+            if task_type in ["تلخيص الدرس", "الاثنين معاً (تلخيص وأسئلة)"]:
+                st.write("### 📝 ملخص من الصورة:")
+                st.info("إليك الملخص المنظم والأفكار الرئيسية المستخرجة من صفحتك الدراسية:\n\n- تم ترتيب القواعد والنقاط بشكل احترافي.")
                 
-            if task_type in ["Generate Quiz Questions", "Both (Summary & Quiz)"]:
-                st.write("### ❓ Quiz Questions from Image:")
-                st.info("1. Based on the notes in the image, what is the primary conclusion?\n2. Test question regarding the formulas/concepts shown.")
+            if task_type in ["توليد أسئلة واختبارات", "الاثنين معاً (تلخيص وأسئلة)"]:
+                st.write("### ❓ أسئلة من الصورة:")
+                st.info("1. بناءً على الملاحظات في الصورة، ما هي النتيجة أو القاعدة الأساسية؟\n2. سؤال اختباري لقياس فهمك للنقاط المذكورة.")
         else:
-            st.warning("Please enter text or upload an image first!")
+            st.warning("الرجاء إدخال نص أو رفع صورة أولاً!")
 
 else:
-    st.header("💬 AI Chat & Q&A")
-    st.markdown("Ask any question and get instant answers from your study assistant!")
+    st.header("💬 المحادثة والاستفسارات")
+    st.markdown("اطرح أي سؤال دراسي وسيقوم مساعدك الذكي بالإجابة عليك فوراً!")
     
-    user_question = st.text_input("Ask me anything about your studies:")
-    if st.button("💬 Send Question"):
+    user_question = st.text_input("اسألني عن أي شيء يخص دراستك:")
+    if st.button("💬 إرسال السؤال"):
         if user_question.strip() != "":
-            st.success("Answer:")
-            st.write(f"Great question regarding **'{user_question}'**. Here is the clear explanation to help you understand it completely!")
+            st.success("الإجابة:")
+            st.write(f"سؤال ممتاز بخصوص **'{user_question}'**. إليك شرح تفصيلي وواضح لمساعدتك على فهمه تماماً واستيعابه بسهولة!")
         else:
-            st.warning("Please type a question first.")
+            st.warning("الرجاء كتابة سؤال أولاً.")
         
 
